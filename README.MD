@@ -4,12 +4,12 @@ The goal of this project is to make creating icons for for applications like "To
 
 # Requirements
 - Java 1.8 or later
-- A basic button icon (you can use the [example button](https://github.com/Qysher/IconCreator/blob/master/examples/exampleBackground.png).
+- A basic button icon (you can use the [example button](https://github.com/Qysher/IconCreator/blob/master/examples/exampleBackground.png)).
 
 # Usage
 1. Download the latest version under the [Release](https://github.com/Qysher/IconCreator/releases) tab. 
 2. Run the application
-3. Select a background image by either clicking the [...] button next to the text field. (Alternatively you can drag and drop your image onto the text field).
+3. Select a background image by either clicking the [...] button next to the text field. (Alternatively you can drag and drop your image onto the text field). If you don't have a button background available, then you can just use the [example button](https://github.com/Qysher/IconCreator/blob/master/examples/exampleBackground.png).
 4. For the foreground image you can do the same. A fast and easy way to get the icon of an application is using my [IconExtractor](https://github.com/Qysher/IconExtractor) script. For testing you can just use the [example icon](https://github.com/Qysher/IconCreator/blob/master/examples/exampleForeground.png)
 5. The overlay is just another layer like the foreground image. It is used to give your buttons a nice effect. [example overlay](https://github.com/Qysher/IconCreator/blob/master/examples/exampleOverlay.png)
 6. (Optional) Override Color is a feature used to recolor icons (for better identifiability).
