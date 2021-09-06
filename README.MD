@@ -1,5 +1,6 @@
 # IconCreator
-A minimal application to create icons with a uniform style.
+A minimal application that will let you create icons in a consistent style in no time.
+The goal of this project is to make creating icons for for applications like "Touch Portal" easier and more accesible.
 
 # Requirements
 - Java 1.8 or later
