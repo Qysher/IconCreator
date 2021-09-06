@@ -26,3 +26,5 @@ The goal of this project is to make creating icons for for applications like "To
 
 # Media
 ![GIF of making an icon](https://raw.githubusercontent.com/Qysher/IconCreator/master/iconcreator-example.gif)
+![Old](https://i.imgur.com/mXfqc2m.png)
+![New](https://i.imgur.com/4W0ODkE.png)
