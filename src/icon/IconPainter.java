@@ -37,6 +37,7 @@ public class IconPainter {
 
         drawForeground: {
             Image foregroundImage = ResourceUtils.loadImageFromString(foregroundPath);
+            foregroundImage = rescaleIcon(foregroundImage, bufferedImage.getWidth(), bufferedImage.getHeight());
             if(Keys.KEY_OVERRIDE_COLOR_ENABLED.getValue()) {
                 long overrideColor = Long.parseLong(Keys.KEY_OVERRIDE_COLOR_HEXCODE.getValue(), 16);
                 foregroundImage = overrideColor(foregroundImage, new Color((int) overrideColor));
@@ -51,12 +52,20 @@ public class IconPainter {
 
         drawOverlay: {
             Image backgroundImage = ResourceUtils.loadImageFromString(overlayPath);
+            backgroundImage = rescaleIcon(backgroundImage, bufferedImage.getWidth(), bufferedImage.getHeight());
             int x = bufferedImage.getWidth() / 2 - backgroundImage.getWidth(null) / 2;
             int y = bufferedImage.getHeight() / 2 - backgroundImage.getHeight(null) / 2;
             g2D.drawImage(backgroundImage,x, y, bufferedImage.getWidth(), bufferedImage.getHeight(), null);
         }
 
         g2D.dispose();
+        return bufferedImage;
+    }
+
+    public static BufferedImage rescaleIcon(Image image, int width, int height) {
+        BufferedImage bufferedImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+        bufferedImage.getGraphics().drawImage(image, 1, 1, width, height, null);
+        bufferedImage.getGraphics().dispose();
         return bufferedImage;
     }
 

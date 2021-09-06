@@ -1,6 +1,7 @@
 package utils;
 
 import config.Keys;
+import statics.Statics;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileSystemView;
@@ -47,6 +48,8 @@ public class FileUtils {
             fileDialog.setMultipleMode(false);
             if(folder != null)
                 fileDialog.setDirectory(folder.getAbsolutePath());
+            else
+                fileDialog.setDirectory(Statics.DEFAULT_FOLDER_PATH.getAbsolutePath());
             fileDialog.setFile(firstFreeFile(new File(fileDialog.getDirectory())) + ".png");
             fileDialog.setVisible(true);
             if(fileDialog.getFiles().length > 0) {

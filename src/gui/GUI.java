@@ -204,7 +204,7 @@ public class  GUI extends JFrame {
             File saveFile = FileUtils.fileSaveDialog(this, "Save File", null);
             if(saveFile != null) {
                 try {
-                    ImageIO.write(IconPainter.paintIcon(),"PNG", saveFile);
+                    ImageIO.write(IconPainter.paintIcon(), "PNG", saveFile);
                 } catch (Exception exception) {
                     exception.printStackTrace();
                     MessageUtils.showExceptionMessage(exception);
