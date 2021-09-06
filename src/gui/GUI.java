@@ -1,8 +1,10 @@
 package gui;
 
+import batchmode.Batchmode;
 import config.Keys;
 import icon.IconPainter;
 import statics.Statics;
+import utils.DrawUtils;
 import utils.FileUtils;
 import utils.MessageUtils;
 import utils.ResourceLoader;
@@ -27,7 +29,7 @@ import java.net.URI;
 import java.util.Arrays;
 import java.util.List;
 
-public class GUI extends JFrame {
+public class  GUI extends JFrame {
     private JPanel panel_contentPane;
     private JPanel panel_controls;
     private JPanel panel_preview;
@@ -47,6 +49,10 @@ public class GUI extends JFrame {
     private JCheckBox checkBox_overrideColor;
     private JTextField textField_overrideColorHexCode;
     private JEditorPane editorPane_helpHTML;
+    private JLabel label_overlay;
+    private JTextField textField_overlay;
+    private JButton button_overlayFileSelector;
+    private JButton button_batchMode;
     private JButton buttonOK;
     private JButton buttonCancel;
 
@@ -75,11 +81,10 @@ public class GUI extends JFrame {
         });
 
         button_backgroundFileSelector.addActionListener(e -> {
-            File file = FileUtils.openFileDialog(this, "Choose a Background", Statics.DEFAULT_FOLDER_PATH);
-            if(file != null) {
-                textField_background.setText(file.getAbsolutePath());
-                Keys.KEY_BACKGROUND_PATH.setValue(textField_background.getText());
-            }
+            File file = FileUtils.openFileDialog(this, "Choose a Background", null);
+            String path = (file != null ? file.getAbsolutePath() : "");
+            textField_background.setText(path);
+            Keys.KEY_BACKGROUND_PATH.setValue(path);
             repaint();
         });
 
@@ -101,16 +106,41 @@ public class GUI extends JFrame {
         });
 
         button_foregroundFileSelector.addActionListener(e -> {
-            File file = FileUtils.openFileDialog(this, "Choose a Foreground", Statics.DEFAULT_FOLDER_PATH);
-            if(file != null) {
-                textField_foreground.setText(file.getAbsolutePath());
-                Keys.KEY_FOREGROUND_PATH.setValue(textField_foreground.getText());
+            File file = FileUtils.openFileDialog(this, "Choose a Foreground", null);
+            String path = (file != null ? file.getAbsolutePath() : "");
+            textField_foreground.setText(path);
+            Keys.KEY_FOREGROUND_PATH.setValue(path);
+            repaint();
+        });
+
+        textField_overlay.setDropTarget(new DropTarget() {
+            public synchronized void drop(DropTargetDropEvent evt) {
+                try {
+                    evt.acceptDrop(DnDConstants.ACTION_COPY);
+                    List<File> droppedFiles = (List<File>)
+                            evt.getTransferable().getTransferData(DataFlavor.javaFileListFlavor);
+                    for (File file : droppedFiles) {
+                        textField_overlay.setText(file.getAbsolutePath());
+                        Keys.KEY_OVERLAY_PATH.setValue(file.getAbsolutePath());
+                    }
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+                repaint();
             }
+        });
+
+        button_overlayFileSelector.addActionListener(e -> {
+            File file = FileUtils.openFileDialog(this, "Choose an Overlay", null);
+            String path = (file != null ? file.getAbsolutePath() : "");
+            textField_overlay.setText(path);
+            Keys.KEY_OVERLAY_PATH.setValue(path);
             repaint();
         });
 
         panel_preview.setLayout(new GridLayout(0, 1));
         panel_preview.add(new DrawPanel((g2D, w, h) -> {
+            DrawUtils.enableAntialiasing(g2D);
             BufferedImage bufferedImage = IconPainter.paintIcon();
 
             drawBase: {
@@ -175,10 +205,10 @@ public class GUI extends JFrame {
         });
 
         saveButton.addActionListener(e -> {
-            File saveFile = FileUtils.fileSaveDialog(this, "Save File", Statics.DEFAULT_FOLDER_PATH);
+            File saveFile = FileUtils.fileSaveDialog(this, "Save File", null);
             if(saveFile != null) {
                 try {
-                    ImageIO.write(IconPainter.paintIcon(), "PNG", saveFile);
+                    ImageIO.write(IconPainter.paintIcon(),"PNG", saveFile);
                 } catch (Exception exception) {
                     exception.printStackTrace();
                     MessageUtils.showExceptionMessage(exception);
@@ -195,16 +225,18 @@ public class GUI extends JFrame {
             }
         });
 
+        button_batchMode.addActionListener(e -> Batchmode.startBatchMode());
+
         textField_background.setText(Keys.KEY_BACKGROUND_PATH.getValue());
         textField_foreground.setText(Keys.KEY_FOREGROUND_PATH.getValue());
         checkBox_overrideColor.setSelected(Keys.KEY_OVERRIDE_COLOR_ENABLED.getValue());
         textField_overrideColorHexCode.setText(Keys.KEY_OVERRIDE_COLOR_HEXCODE.getValue());
+        textField_overlay.setText(Keys.KEY_OVERLAY_PATH.getValue());
         slider_margin.setValue(Keys.KEY_MARGIN_VALUE.getValue());
         label_marginValue.setText(String.valueOf(Keys.KEY_MARGIN_VALUE.getValue()));
         slider_backgroundBrightness.setValue(Keys.KEY_BACKGROUND_BRIGHTNESS_VALUE.getValue());
         label_backgroundBrightnessValue.setText(String.valueOf(Keys.KEY_BACKGROUND_BRIGHTNESS_VALUE.getValue()));
         editorPane_helpHTML.setText(ResourceLoader.readResourceAsText("/helpHTML.html"));
-
     }
 
     public void repaint() {

@@ -16,11 +16,17 @@ public class Keys {
     public static final StaticKey<Boolean> KEY_OVERRIDE_COLOR_ENABLED = new StaticKey<>("KEY_OVERRIDE_COLOR_ENABLED", false);
     public static final StaticKey<String> KEY_OVERRIDE_COLOR_HEXCODE = new StaticKey<>("KEY_OVERRIDE_COLOR_HEXCODE", "000000");
 
+    // Overlay Path
+    public static final StaticKey<String> KEY_OVERLAY_PATH = new StaticKey<>("KEY_OVERLAY_PATH", "");
+
     // Margin Value
     public static final StaticKey<Integer> KEY_MARGIN_VALUE = new StaticKey<>("KEY_MARGIN_VALUE", 0);
 
     // Background Brightness Value
     public static final StaticKey<Integer> KEY_BACKGROUND_BRIGHTNESS_VALUE = new StaticKey<>("KEY_BACKGROUND_BRIGHTNESS_VALUE", 255);
+
+    // Save Directory last directory
+    public static final StaticKey<String> KEY_SAVE_DIRECTORY_LAST_DIRECTORY = new StaticKey<>("KEY_SAVE_DIRECTORY_LAST_DIRECTORY", "");
 
     // Code
     public static Config config = Start.config;
