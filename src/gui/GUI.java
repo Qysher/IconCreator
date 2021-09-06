@@ -3,7 +3,6 @@ package gui;
 import batchmode.Batchmode;
 import config.Keys;
 import icon.IconPainter;
-import statics.Statics;
 import utils.DrawUtils;
 import utils.FileUtils;
 import utils.MessageUtils;
@@ -12,14 +11,11 @@ import utils.ResourceLoader;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.event.HyperlinkEvent;
-import javax.swing.event.HyperlinkListener;
 import java.awt.*;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.dnd.DnDConstants;
 import java.awt.dnd.DropTarget;
 import java.awt.dnd.DropTargetDropEvent;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
@@ -53,8 +49,6 @@ public class  GUI extends JFrame {
     private JTextField textField_overlay;
     private JButton button_overlayFileSelector;
     private JButton button_batchMode;
-    private JButton buttonOK;
-    private JButton buttonCancel;
 
     public GUI() {
         setTitle("IconCreator");
@@ -160,6 +154,8 @@ public class  GUI extends JFrame {
         checkBox_overrideColor.addActionListener(e -> {
             boolean newValue = checkBox_overrideColor.isSelected();
             Keys.KEY_OVERRIDE_COLOR_ENABLED.setValue(newValue);
+
+
             repaint();
         });
 

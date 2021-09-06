@@ -60,14 +60,16 @@ public class IconPainter {
         return bufferedImage;
     }
 
-    public static BufferedImage overrideColor(Image image, Color color) {
+    public static BufferedImage convertImageToARGBImage(Image image) {
         BufferedImage bufferedImage = new BufferedImage(image.getWidth(null), image.getHeight(null), BufferedImage.TYPE_INT_ARGB);
         bufferedImage.getGraphics().drawImage(image, 1, 1, null);
         bufferedImage.getGraphics().dispose();
-        WritableRaster raster = bufferedImage.getRaster();
+        return bufferedImage;
+    }
 
-        /*BufferedImage bufferedImage = (BufferedImage) image;
-        WritableRaster raster = ((BufferedImage) image).getRaster();*/
+    public static BufferedImage overrideColor(Image image, Color color) {
+        BufferedImage bufferedImage = convertImageToARGBImage(image);
+        WritableRaster raster = bufferedImage.getRaster();
 
         try {
             for(int x = 0 ; x < bufferedImage.getWidth() ; x++) {

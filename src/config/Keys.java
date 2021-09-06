@@ -12,7 +12,7 @@ public class Keys {
     // Foreground Path
     public static final StaticKey<String> KEY_FOREGROUND_PATH = new StaticKey<>("KEY_FOREGROUND_PATH", "");
 
-    // Override Color
+    // Icon Color Options
     public static final StaticKey<Boolean> KEY_OVERRIDE_COLOR_ENABLED = new StaticKey<>("KEY_OVERRIDE_COLOR_ENABLED", false);
     public static final StaticKey<String> KEY_OVERRIDE_COLOR_HEXCODE = new StaticKey<>("KEY_OVERRIDE_COLOR_HEXCODE", "000000");
 
